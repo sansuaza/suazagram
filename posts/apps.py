@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class PostConfig(AppConfig):
-    name = 'post'
-    varbose_name = 'post'
+    name = 'posts'
+    varbose_name = 'posts'

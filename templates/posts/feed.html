@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<htmllang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Suazagram</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-</head>
-<body>
-    <br><br>
-    <div class="container">
-        <div class="row">
+{% extends 'base.html' %}
+
+{% block head_content %}
+<title> Suazagram feed </title>
+{% endblock head_content %}
+
+{% block container %}
+      <div class="row">
             {% for post in posts %}
             <div class="col-lg-4 offset-lg-4">
                 <div class="media">
@@ -24,6 +20,8 @@
             </div>
             {% endfor %}
         </div>
-    </div>
-</body>
-</html>
+{% endblock container %}
+
+
+      
+    

@@ -8,11 +8,44 @@ from django.db.utils import IntegrityError
 
 # Models
 from django.contrib.auth.models import User
-from users.models import Profile
+from users.models import Profile 
 
+# Users
+from users.forms import ProfileForm
+
+@login_required
 def update_profile(request):
 
-    return render(request, 'users/update_profile.html')
+    profile = request.user.profile
+
+    if request.method == 'POST':
+        print("entrooooooooo")
+        #Las imagenes no son solo texto de formularios, Por eso el request.FILES
+        form = ProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            print('***')
+            print(form.cleaned_data)
+            data = form.cleaned_data
+
+            profile.website = data['website']
+            profile.phone_number = data['phone_number']
+            profile.biography = data['biography']
+            profile.picture = data['picture']
+            profile.save()
+
+            return redirect('update_profile')
+            
+    else:
+        form = ProfileForm()
+
+    return render(
+        request = request,
+        template_name = 'users/update_profile.html',
+        context = {
+            'profile': profile,
+            'user': request.user
+        }
+    )
 
 
 def login_view(request):
@@ -56,6 +89,7 @@ def signup_view(request):
         user.first_name = request.POST['first_name']
         user.last_name = request.POST['last_name']
         user.email = request.POST['email']
+        user.save()
 
         profile = Profile (user= user)
         profile.save()
